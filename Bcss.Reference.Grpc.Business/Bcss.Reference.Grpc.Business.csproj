@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bcss.Reference.Domain\Bcss.Reference.Domain.csproj" />
+    <ProjectReference Include="..\Bcss.Reference.Grpc.Shared\Bcss.Reference.Grpc.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

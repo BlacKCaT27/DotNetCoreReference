@@ -1,0 +1,85 @@
+syntax = "proto3";
+package weather;
+
+option csharp_namespace = "Bcss.Reference.Grpc";
+
+service WeatherService {
+  rpc CreateWeatherForecast(CreateWeatherForecastRequest) returns (CreateWeatherForecastResponse);
+
+  rpc GetWeatherForecastById(GetWeatherForecastByIdRequest) returns (GetWeatherForecastResponse);
+
+  rpc ListWeatherForecasts(ListWeatherForecastRequest) returns (ListWeatherForecastsResponse);
+
+  rpc UpdateWeatherForecast(UpdateWeatherForecastRequest) returns (UpdateWeatherForecastResponse);
+
+  rpc DeleteWeatherForecast(DeleteWeatherForecastRequest) returns (DeleteWeatherForecastResponse);
+
+  rpc GetWeatherForecastByDate(GetWeatherForecastByDateRequest) returns (GetWeatherForecastResponse);
+}
+
+message CreateWeatherForecastRequest {
+	Location location = 1;
+	string date = 2;
+	double temperature = 3;
+	string summary = 4;
+}
+
+message CreateWeatherForecastResponse {
+	WeatherForecast weatherForecast = 1;
+}
+
+message ListWeatherForecastRequest {
+}
+
+message ListWeatherForecastsResponse {
+	repeated WeatherForecast forecasts = 1;
+}
+
+message GetWeatherForecastByIdRequest {
+	int32 weatherForecastId = 1;
+}
+
+message GetWeatherForecastByDateRequest {
+    int32 locationId = 1;
+	string date = 2;
+}
+
+message GetWeatherForecastResponse {
+    WeatherForecast forecast = 1;
+}
+
+// Saves a new or existing forecast. To save a new forecast, set the id to -1.
+message UpdateWeatherForecastRequest {
+    WeatherForecast forecast = 1;
+}
+
+message UpdateWeatherForecastResponse {
+	WeatherForecast forecast = 1;
+}
+
+message DeleteWeatherForecastRequest {
+    int32 id = 1;
+}
+
+message DeleteWeatherForecastResponse {
+	bool deleted = 1;
+}
+
+message Location {
+	int32 id = 1;
+	float latitude = 2;
+	float longitude = 3;
+	string name = 4;
+}
+
+message WeatherForecast {
+    int32 id = 1;
+    Location location = 2;
+
+	// Intentionally using string for a date for ease of implementation.
+	// Normally, using Timestamp type provided by google/protobuf/Timestamp
+	// is the more appropriate choice.
+    string date = 3;
+	double temperature = 4;
+	string summary = 5;
+}
